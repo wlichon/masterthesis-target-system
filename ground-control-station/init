@@ -1,8 +1,9 @@
 #!/usr/bin/expect
 
-spawn mavproxy.py --master=udp:0.0.0.0:14550
+spawn mavproxy.py --master=udp:0.0.0.0:14550 --logfile=/home/user/Documents/mavproxy/telemetry.tlog
 # Interact with MAVProxy as needed
 set timeout -1
 expect "xxxxx"
 send "xxxxx\r"
+
 interact

@@ -1,0 +1,1212 @@
+{
+    "execution_record": {
+        "timestamps": {
+            "start": "2026-04-09_17:27:29",
+            "first_normal_flight": "2026-04-09_17:28:23",
+            "before_attack": "2026-04-09_17:28:33",
+            "second_normal_flight": "2026-04-09_17:28:53"
+        },
+        "attack_function": {
+            "attack_name": "mavlink_flood",
+            "arguments": {
+                "target_ip": "192.168.13.14",
+                "target_port": 14550,
+                "rate_hz": 60,
+                "threads": 1,
+                "duration": 20
+            }
+        }
+    },
+    "mavloss": {
+        "received_packets": 4077,
+        "lost_packets": 389,
+        "loss_percentage": 8.7
+    },
+    "message_types": {
+        "PARAM_VALUE": 1385,
+        "HEARTBEAT": 1146,
+        "TIMESYNC": 139,
+        "PARAM_REQUEST_READ": 115,
+        "VFR_HUD": 75,
+        "SYSTEM_TIME": 75,
+        "SYS_STATUS": 75,
+        "SERVO_OUTPUT_RAW": 75,
+        "SCALED_PRESSURE2": 75,
+        "SCALED_PRESSURE": 75,
+        "SCALED_IMU3": 75,
+        "SCALED_IMU2": 75,
+        "RC_CHANNELS": 75,
+        "RAW_IMU": 75,
+        "POWER_STATUS": 75,
+        "NAV_CONTROLLER_OUTPUT": 75,
+        "MISSION_CURRENT": 75,
+        "MEMINFO": 75,
+        "GPS_RAW_INT": 75,
+        "GLOBAL_POSITION_INT": 75,
+        "ATTITUDE": 75,
+        "WIND": 74,
+        "VIBRATION": 74,
+        "TERRAIN_REPORT": 74,
+        "SIMSTATE": 74,
+        "RANGEFINDER": 74,
+        "LOCAL_POSITION_NED": 74,
+        "EKF_STATUS_REPORT": 74,
+        "DISTANCE_SENSOR": 74,
+        "BATTERY_STATUS": 74,
+        "AHRS2": 74,
+        "AHRS": 74,
+        "POSITION_TARGET_GLOBAL_INT": 73,
+        "STATUSTEXT": 46,
+        "COMMAND_LONG": 24,
+        "MISSION_ITEM_REACHED": 22,
+        "PARAM_REQUEST_LIST": 21,
+        "FILE_TRANSFER_PROTOCOL": 13,
+        "REQUEST_DATA_STREAM": 8,
+        "ESC_TELEMETRY_1_TO_4": 2,
+        "HOME_POSITION": 1,
+        "GPS_GLOBAL_ORIGIN": 1,
+        "COMMAND_ACK": 1
+    },
+    "docker_stats": [
+        {
+            "timestamp": "2026-04-09 17:27:31",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "1.28%",
+            "mem_percent": "0.27%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:31",
+            "container": "companion-computer-lite",
+            "cpu_percent": "0.81%",
+            "mem_percent": "2.62%",
+            "net_io": "2.99MB / 7.09MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:31",
+            "container": "flight-controller-lite",
+            "cpu_percent": "12.67%",
+            "mem_percent": "0.16%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:33",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "1.47%",
+            "mem_percent": "0.57%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:33",
+            "container": "companion-computer-lite",
+            "cpu_percent": "5.24%",
+            "mem_percent": "2.62%",
+            "net_io": "2.99MB / 7.09MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:33",
+            "container": "flight-controller-lite",
+            "cpu_percent": "104.56%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:35",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "2.55%",
+            "mem_percent": "0.74%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:35",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.35%",
+            "mem_percent": "2.62%",
+            "net_io": "2.99MB / 7.09MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:35",
+            "container": "flight-controller-lite",
+            "cpu_percent": "4.53%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:37",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "1.47%",
+            "mem_percent": "0.74%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:37",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.60%",
+            "mem_percent": "2.62%",
+            "net_io": "2.99MB / 7.09MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:37",
+            "container": "flight-controller-lite",
+            "cpu_percent": "8.10%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:39",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "1.27%",
+            "mem_percent": "0.74%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:39",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.67%",
+            "mem_percent": "2.62%",
+            "net_io": "2.99MB / 7.09MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:39",
+            "container": "flight-controller-lite",
+            "cpu_percent": "8.06%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:41",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "1.38%",
+            "mem_percent": "0.74%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:41",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.68%",
+            "mem_percent": "2.62%",
+            "net_io": "2.99MB / 7.09MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:41",
+            "container": "flight-controller-lite",
+            "cpu_percent": "7.86%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:43",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "1.53%",
+            "mem_percent": "0.74%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:43",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.66%",
+            "mem_percent": "2.62%",
+            "net_io": "2.99MB / 7.09MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:43",
+            "container": "flight-controller-lite",
+            "cpu_percent": "8.57%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:45",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "1.89%",
+            "mem_percent": "0.74%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:45",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.73%",
+            "mem_percent": "2.62%",
+            "net_io": "3MB / 7.1MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:45",
+            "container": "flight-controller-lite",
+            "cpu_percent": "7.98%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:47",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "1.40%",
+            "mem_percent": "0.74%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:47",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.53%",
+            "mem_percent": "2.62%",
+            "net_io": "3MB / 7.1MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:47",
+            "container": "flight-controller-lite",
+            "cpu_percent": "6.88%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:50",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "1.39%",
+            "mem_percent": "0.74%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:50",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.60%",
+            "mem_percent": "2.62%",
+            "net_io": "3MB / 7.1MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:50",
+            "container": "flight-controller-lite",
+            "cpu_percent": "7.35%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:52",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "1.54%",
+            "mem_percent": "0.74%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:52",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.72%",
+            "mem_percent": "2.62%",
+            "net_io": "3MB / 7.1MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:52",
+            "container": "flight-controller-lite",
+            "cpu_percent": "8.73%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:54",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "1.46%",
+            "mem_percent": "0.74%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:54",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.55%",
+            "mem_percent": "2.62%",
+            "net_io": "3MB / 7.1MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:54",
+            "container": "flight-controller-lite",
+            "cpu_percent": "8.26%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:56",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "1.41%",
+            "mem_percent": "0.74%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:56",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.48%",
+            "mem_percent": "2.62%",
+            "net_io": "3MB / 7.1MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:56",
+            "container": "flight-controller-lite",
+            "cpu_percent": "7.41%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:58",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "1.40%",
+            "mem_percent": "0.74%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:58",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.55%",
+            "mem_percent": "2.62%",
+            "net_io": "3MB / 7.1MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:27:58",
+            "container": "flight-controller-lite",
+            "cpu_percent": "8.00%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:00",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "1.61%",
+            "mem_percent": "0.74%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:00",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.55%",
+            "mem_percent": "2.62%",
+            "net_io": "3MB / 7.11MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:00",
+            "container": "flight-controller-lite",
+            "cpu_percent": "8.01%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:02",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "1.52%",
+            "mem_percent": "0.74%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:02",
+            "container": "companion-computer-lite",
+            "cpu_percent": "2.14%",
+            "mem_percent": "2.62%",
+            "net_io": "3MB / 7.11MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:02",
+            "container": "flight-controller-lite",
+            "cpu_percent": "7.91%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:04",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "1.35%",
+            "mem_percent": "0.74%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:04",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.58%",
+            "mem_percent": "2.62%",
+            "net_io": "3MB / 7.11MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:04",
+            "container": "flight-controller-lite",
+            "cpu_percent": "7.15%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:06",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "1.55%",
+            "mem_percent": "0.74%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:06",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.50%",
+            "mem_percent": "2.62%",
+            "net_io": "3MB / 7.11MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:06",
+            "container": "flight-controller-lite",
+            "cpu_percent": "6.15%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:08",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "1.46%",
+            "mem_percent": "0.74%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:08",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.52%",
+            "mem_percent": "2.62%",
+            "net_io": "3.01MB / 7.11MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:08",
+            "container": "flight-controller-lite",
+            "cpu_percent": "7.94%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:10",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "1.33%",
+            "mem_percent": "0.74%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:10",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.45%",
+            "mem_percent": "2.62%",
+            "net_io": "3.01MB / 7.11MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:10",
+            "container": "flight-controller-lite",
+            "cpu_percent": "7.59%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:12",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "1.27%",
+            "mem_percent": "0.74%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:12",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.43%",
+            "mem_percent": "2.62%",
+            "net_io": "3.01MB / 7.11MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:12",
+            "container": "flight-controller-lite",
+            "cpu_percent": "6.70%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:14",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "1.47%",
+            "mem_percent": "0.74%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:14",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.54%",
+            "mem_percent": "2.62%",
+            "net_io": "3.01MB / 7.12MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:14",
+            "container": "flight-controller-lite",
+            "cpu_percent": "7.51%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:16",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "1.28%",
+            "mem_percent": "0.74%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:16",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.78%",
+            "mem_percent": "2.62%",
+            "net_io": "3.01MB / 7.12MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:16",
+            "container": "flight-controller-lite",
+            "cpu_percent": "7.46%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:18",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "1.16%",
+            "mem_percent": "0.74%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:18",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.49%",
+            "mem_percent": "2.62%",
+            "net_io": "3.01MB / 7.12MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:18",
+            "container": "flight-controller-lite",
+            "cpu_percent": "8.20%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:20",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "3.68%",
+            "mem_percent": "0.57%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:20",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.81%",
+            "mem_percent": "2.62%",
+            "net_io": "3.01MB / 7.12MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:20",
+            "container": "flight-controller-lite",
+            "cpu_percent": "7.95%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:22",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "111.50%",
+            "mem_percent": "0.74%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:22",
+            "container": "companion-computer-lite",
+            "cpu_percent": "2.68%",
+            "mem_percent": "2.62%",
+            "net_io": "3.01MB / 7.12MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:22",
+            "container": "flight-controller-lite",
+            "cpu_percent": "16.43%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:24",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "3.32%",
+            "mem_percent": "0.57%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:24",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.70%",
+            "mem_percent": "2.62%",
+            "net_io": "3.01MB / 7.12MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:24",
+            "container": "flight-controller-lite",
+            "cpu_percent": "8.07%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:26",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "3.44%",
+            "mem_percent": "0.57%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:26",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.72%",
+            "mem_percent": "2.62%",
+            "net_io": "3.01MB / 7.12MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:26",
+            "container": "flight-controller-lite",
+            "cpu_percent": "8.52%",
+            "mem_percent": "0.29%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:28",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "4.07%",
+            "mem_percent": "0.57%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:28",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.58%",
+            "mem_percent": "2.62%",
+            "net_io": "3.02MB / 7.13MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:28",
+            "container": "flight-controller-lite",
+            "cpu_percent": "8.23%",
+            "mem_percent": "0.29%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:30",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "3.92%",
+            "mem_percent": "0.57%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:30",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.82%",
+            "mem_percent": "2.62%",
+            "net_io": "3.02MB / 7.13MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:30",
+            "container": "flight-controller-lite",
+            "cpu_percent": "9.36%",
+            "mem_percent": "0.29%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:32",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "4.05%",
+            "mem_percent": "0.57%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:32",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.75%",
+            "mem_percent": "2.62%",
+            "net_io": "3.02MB / 7.13MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:32",
+            "container": "flight-controller-lite",
+            "cpu_percent": "8.28%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:34",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "6.78%",
+            "mem_percent": "0.57%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:34",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.99%",
+            "mem_percent": "2.62%",
+            "net_io": "3.02MB / 7.13MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:34",
+            "container": "flight-controller-lite",
+            "cpu_percent": "10.76%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:36",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "8.29%",
+            "mem_percent": "0.57%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:36",
+            "container": "companion-computer-lite",
+            "cpu_percent": "2.00%",
+            "mem_percent": "2.62%",
+            "net_io": "3.02MB / 7.13MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:36",
+            "container": "flight-controller-lite",
+            "cpu_percent": "11.96%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:38",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "10.27%",
+            "mem_percent": "0.57%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:38",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.79%",
+            "mem_percent": "2.62%",
+            "net_io": "3.02MB / 7.13MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:38",
+            "container": "flight-controller-lite",
+            "cpu_percent": "13.14%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:40",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "8.39%",
+            "mem_percent": "0.57%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:40",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.89%",
+            "mem_percent": "2.62%",
+            "net_io": "3.02MB / 7.14MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:40",
+            "container": "flight-controller-lite",
+            "cpu_percent": "9.87%",
+            "mem_percent": "0.29%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:42",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "7.71%",
+            "mem_percent": "0.57%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:42",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.93%",
+            "mem_percent": "2.62%",
+            "net_io": "3.02MB / 7.14MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:42",
+            "container": "flight-controller-lite",
+            "cpu_percent": "9.69%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:44",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "10.32%",
+            "mem_percent": "0.58%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:44",
+            "container": "companion-computer-lite",
+            "cpu_percent": "2.84%",
+            "mem_percent": "2.62%",
+            "net_io": "3.02MB / 7.14MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:44",
+            "container": "flight-controller-lite",
+            "cpu_percent": "11.23%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:46",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "7.95%",
+            "mem_percent": "0.57%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:46",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.78%",
+            "mem_percent": "2.62%",
+            "net_io": "3.02MB / 7.14MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:46",
+            "container": "flight-controller-lite",
+            "cpu_percent": "10.13%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:48",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "8.05%",
+            "mem_percent": "0.57%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:48",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.87%",
+            "mem_percent": "2.62%",
+            "net_io": "3.02MB / 7.14MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:48",
+            "container": "flight-controller-lite",
+            "cpu_percent": "9.10%",
+            "mem_percent": "0.29%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:51",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "6.89%",
+            "mem_percent": "0.58%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:51",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.74%",
+            "mem_percent": "2.62%",
+            "net_io": "3.03MB / 7.14MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:51",
+            "container": "flight-controller-lite",
+            "cpu_percent": "9.40%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:53",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "7.67%",
+            "mem_percent": "0.57%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:53",
+            "container": "companion-computer-lite",
+            "cpu_percent": "2.00%",
+            "mem_percent": "2.62%",
+            "net_io": "3.03MB / 7.14MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:53",
+            "container": "flight-controller-lite",
+            "cpu_percent": "11.57%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:55",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "6.83%",
+            "mem_percent": "0.57%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:55",
+            "container": "companion-computer-lite",
+            "cpu_percent": "2.34%",
+            "mem_percent": "2.62%",
+            "net_io": "3.03MB / 7.15MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:55",
+            "container": "flight-controller-lite",
+            "cpu_percent": "9.03%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:57",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "7.46%",
+            "mem_percent": "0.58%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:57",
+            "container": "companion-computer-lite",
+            "cpu_percent": "2.16%",
+            "mem_percent": "2.62%",
+            "net_io": "3.03MB / 7.15MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:57",
+            "container": "flight-controller-lite",
+            "cpu_percent": "8.91%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:59",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "4.97%",
+            "mem_percent": "0.58%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:59",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.49%",
+            "mem_percent": "2.62%",
+            "net_io": "3.03MB / 7.15MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:28:59",
+            "container": "flight-controller-lite",
+            "cpu_percent": "7.97%",
+            "mem_percent": "0.29%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:29:01",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "5.29%",
+            "mem_percent": "0.58%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:29:01",
+            "container": "companion-computer-lite",
+            "cpu_percent": "1.93%",
+            "mem_percent": "2.62%",
+            "net_io": "3.03MB / 7.15MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:29:01",
+            "container": "flight-controller-lite",
+            "cpu_percent": "7.86%",
+            "mem_percent": "0.29%",
+            "net_io": "2.21kB / 126B"
+        },
+        {
+            "timestamp": "2026-04-09 17:29:03",
+            "container": "ground-control-station-lite",
+            "cpu_percent": "4.99%",
+            "mem_percent": "0.58%",
+            "net_io": "5.09MB / 102kB"
+        },
+        {
+            "timestamp": "2026-04-09 17:29:03",
+            "container": "companion-computer-lite",
+            "cpu_percent": "2.06%",
+            "mem_percent": "2.62%",
+            "net_io": "3.03MB / 7.15MB"
+        },
+        {
+            "timestamp": "2026-04-09 17:29:03",
+            "container": "flight-controller-lite",
+            "cpu_percent": "7.58%",
+            "mem_percent": "0.28%",
+            "net_io": "2.21kB / 126B"
+        }
+    ],
+    "latency_stats": [
+        {
+            "sent_at": "2026-04-09T17:28:20.640Z",
+            "latency_ms": 10.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:21.700Z",
+            "latency_ms": 0.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:23.730Z",
+            "latency_ms": 10.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:24.740Z",
+            "latency_ms": 0.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:25.740Z",
+            "latency_ms": 0.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:26.740Z",
+            "latency_ms": 10.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:27.750Z",
+            "latency_ms": 0.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:28.750Z",
+            "latency_ms": 0.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:29.750Z",
+            "latency_ms": 10.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:30.750Z",
+            "latency_ms": 10.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:31.750Z",
+            "latency_ms": 10.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:32.780Z",
+            "latency_ms": 10.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:33.790Z",
+            "latency_ms": 10.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:34.790Z",
+            "latency_ms": 0.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:35.800Z",
+            "latency_ms": 10.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:36.810Z",
+            "latency_ms": 20.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:37.800Z",
+            "latency_ms": 10.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:38.820Z",
+            "latency_ms": 20.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:39.810Z",
+            "latency_ms": 0.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:40.810Z",
+            "latency_ms": 10.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:41.820Z",
+            "latency_ms": 0.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:42.830Z",
+            "latency_ms": 10.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:43.830Z",
+            "latency_ms": 0.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:44.840Z",
+            "latency_ms": 10.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:45.840Z",
+            "latency_ms": 10.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:46.850Z",
+            "latency_ms": 10.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:47.850Z",
+            "latency_ms": 10.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:48.850Z",
+            "latency_ms": 10.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:49.860Z",
+            "latency_ms": 0.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:50.850Z",
+            "latency_ms": 10.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:51.870Z",
+            "latency_ms": 0.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:52.870Z",
+            "latency_ms": 0.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:53.880Z",
+            "latency_ms": 0.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:54.890Z",
+            "latency_ms": 10.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:55.910Z",
+            "latency_ms": 0.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:56.910Z",
+            "latency_ms": 0.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:57.910Z",
+            "latency_ms": 0.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:58.920Z",
+            "latency_ms": 0.0
+        },
+        {
+            "sent_at": "2026-04-09T17:28:59.950Z",
+            "latency_ms": 0.0
+        },
+        {
+            "sent_at": "2026-04-09T17:29:00.950Z",
+            "latency_ms": 0.0
+        },
+        {
+            "sent_at": "2026-04-09T17:29:01.960Z",
+            "latency_ms": 0.0
+        },
+        {
+            "sent_at": "2026-04-09T17:29:02.960Z",
+            "latency_ms": 10.0
+        },
+        {
+            "sent_at": "2026-04-09T17:29:03.980Z",
+            "latency_ms": 0.0
+        }
+    ]
+}

@@ -29,7 +29,8 @@ RUN apt-get update && \
         python3 python3-pip python3.12-dev python3-venv \
         git make g++ expect \
         wpasupplicant isc-dhcp-client iputils-ping \
-        libnl-3-dev libnl-genl-3-dev && \
+        libnl-3-dev libnl-genl-3-dev \
+        tmux && \
     sed -Ei 's/^# *en_US\.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     locale-gen && \
     pip3 install --no-cache-dir future pymavlink MAVProxy mavsdk && \

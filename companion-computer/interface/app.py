@@ -304,7 +304,7 @@ def initialize_udp_destinations() -> None:
     else:
         db.session.add(UdpDestination(ip="10.13.0.4", port=14550))
 
-    db.session.add(UdpDestination(ip="10.13.0.6", port=14550))
+    '''db.session.add(UdpDestination(ip="10.13.0.6", port=14550))
 
     host_ip = get_host_gateway_ip()
     if host_ip:
@@ -313,6 +313,7 @@ def initialize_udp_destinations() -> None:
     else:
         if not UdpDestination.query.filter_by(ip="255.255.255.255", port=14550).first():
             db.session.add(UdpDestination(ip="255.255.255.255", port=14550))
+    '''
 
     db.session.commit()
 

@@ -37,6 +37,10 @@ services:
         ipv4_address: 10.13.0.3
 
   ground-control-station-lite:
+    # keep open to prevent mavproxy from closing
+    tty: true
+    stdin_open: true
+
     image: n1ckaleks/damn-vulnerable-drone-ground-control-station-lite:latest
     container_name: ground-control-station-lite
     privileged: true
@@ -49,6 +53,7 @@ services:
       - XAUTHORITY=/home/gcs/.Xauthority
       - HEADLESS=0
     volumes:
+      - /home/wiktor/Desktop/logs:/home/gcs/wiktor_logs
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ${HOME}/.Xauthority:/home/gcs/.Xauthority:ro
       - /etc/machine-id:/etc/machine-id:ro

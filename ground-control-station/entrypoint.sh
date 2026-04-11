@@ -27,4 +27,11 @@ esac
 ln -sf "$SRC" "$TARGET"
 echo "[entrypoint] Selected $(basename "$SRC") -> $TARGET (WIFI_MODE='${WIFI_MODE:-<unset>}')"
 
-exec /usr/bin/expect /init
+/usr/bin/python3 /usr/local/bin/mavproxy.py --master=udp:0.0.0.0:14550 --logfile=/home/user/Documents/mavproxy/telemetry.tlog &
+
+# This becomes PID 1 and NEVER exits
+exec sleep infinity
+
+# exec /usr/bin/python3 /usr/local/bin/mavproxy.py \
+#      --master=udp:0.0.0.0:14550 \
+#      --logfile=/home/user/Documents/mavproxy/telemetry.tlog
