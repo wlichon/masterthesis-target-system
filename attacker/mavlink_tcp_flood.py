@@ -4,7 +4,7 @@ from pymavlink import mavutil
 import time
 import sys
 
-def flood_mavlink(target_ip="192.168.13.1", target_port=5760, rate_hz=60):
+def tcp_flood(target_ip="192.168.13.1", target_port=5760, rate_hz=60):
     mav = mavutil.mavlink.MAVLink(None)
     mav.srcSystem = 1
     mav.srcComponent = 1

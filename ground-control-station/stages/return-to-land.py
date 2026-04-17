@@ -1,5 +1,6 @@
 from pymavlink import mavutil
 import time
+from signing import upload_signing_key_to_drone, setup_packet_signing
 
 def set_rtl_altitude(master, rtl_alt_cm):
     """Set the RTL altitude."""

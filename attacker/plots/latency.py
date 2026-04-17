@@ -21,7 +21,7 @@ def generate_latency_trend_chart(json_filepath, output_image):
     
     # 3. Clean and Sort Data
     # Use 'sent_at' as the time column and 'latency_ms' for the value
-    df['sent_at'] = pd.to_datetime(df['sent_at'])
+    df['sent_at'] = pd.to_datetime(df['timestamp'])
     df = df.sort_values('sent_at')
 
     # 4. Create the Chart
@@ -30,7 +30,7 @@ def generate_latency_trend_chart(json_filepath, output_image):
     # Plotting the latency
     plt.plot(
         df['sent_at'], 
-        df['latency_ms'], 
+        df['latency'], 
         marker='o', 
         color='tab:red', 
         linestyle='-', 

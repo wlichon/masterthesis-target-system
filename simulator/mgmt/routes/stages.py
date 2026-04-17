@@ -61,12 +61,12 @@ def stage1():
         command = ("Tools/autotest/sim_vehicle.py -v ArduCopter --add-param-file drone.parm "
                    "--custom-location 37.241861,-115.796917,137,340 -f gazebo-iris "
                    "--no-rebuild --no-mavproxy --sim-address=10.13.0.5 "
-                   "-A '--serial0=uart:/dev/ttyACM0:57600'")
+                   "-A '--serial1=uart:/dev/ttyACM0:57600'")
     else:
         command = ("Tools/autotest/sim_vehicle.py -v ArduCopter --add-param-file drone.parm "
                    "--custom-location 37.241861,-115.796917,137,340 -f quad "
                    "--no-rebuild --no-mavproxy "
-                   "-A '--serial0=uart:/dev/ttyACM0:57600'")
+                   "-A '-S --serial0=tcp:0 --serial1=uart:/dev/ttyACM0:57600' --console")
 
     logger.info("Executing: %s", command)
 

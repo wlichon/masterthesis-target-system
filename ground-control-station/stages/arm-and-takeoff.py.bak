@@ -96,7 +96,7 @@ def wait_for_ekf_status(master):
 
 # Create connection (UDP for SITL/Docker)
 connection_string = "udp:0.0.0.0:14550"
-master = mavutil.mavlink_connection(connection_string, source_system=255)
+master = mavutil.mavlink_connection(connection_string, source_system=254)
 
 # Must wait for first heartbeat to know target_system/target_component
 master.wait_heartbeat()
@@ -124,55 +124,40 @@ print("GUIDED mode set")
 
 wait_for_ekf_status(master)
 
-def print_statustext(master):
-    msg = master.recv_match(type='STATUSTEXT', blocking=False)
-    if msg:
-        print(f"Autopilot Status: {msg.text}")
-
 # Arm (Signed)
-
 master.arducopter_arm()
-print("Arming motors...")
+print("Arming motors")
 
-
-# Call this inside your loops while waiting
-
-# 2. Immediately check if the drone REJECTED the command
-# This captures the "PreArm: XYZ" errors
-ack = master.recv_match(type='COMMAND_ACK', blocking=True, timeout=2)
-if ack:
-    if ack.result != mavutil.mavlink.MAV_RESULT_ACCEPTED:
-        print(f"Arming command REJECTED. Result code: {ack.result}")
-        # At this point, you'd likely want to see the STATUSTEXT
-        # for the specific PreArm failure reason.
-        msg = master.recv_match(type='STATUSTEXT', blocking=True, timeout=1)
-        if msg:
-            print(f"Reason: {msg.text}")
-        # Optional: exit(1) if you want to stop on a hard rejection
-
-# 3. If it wasn't rejected, THEN wait for the state to change to ARMED
-arming_timeout = 5
+arming_timeout = 10
 start_time = time.time()
+heartbeat = None
+
 while time.time() - start_time < arming_timeout:
     heartbeat = master.recv_match(type='HEARTBEAT', blocking=True, timeout=1)
-    
-    # Check for any background status messages (PreArm issues)
-    print_statustext(master) 
-    
-    if heartbeat and is_armed(heartbeat):
+    if heartbeat is not None and is_armed(heartbeat):
         print("Drone is armed")
         break
-    else:
-        print("Failed to arm motors... retrying")
 
-if is_armed(heartbeat):
-    # Takeoff command
+if heartbeat and is_armed(heartbeat):
+    # Takeoff (Signed)
     master.mav.command_long_send(
         master.target_system, master.target_component,
         mavutil.mavlink.MAV_CMD_NAV_TAKEOFF,
         0, 0, 0, 0, 0, 0, 0, 2.75)
+    
+    ack = master.recv_match(type='COMMAND_ACK', blocking=True, timeout=3)
+
+    if ack:
+        # Check if the command was for NAV_TAKEOFF (ID 22)
+        if ack.command == mavutil.mavlink.MAV_CMD_NAV_TAKEOFF:
+            # Result 0 is MAV_RESULT_ACCEPTED
+            if ack.result == mavutil.mavlink.MAV_RESULT_ACCEPTED:
+                print("Takeoff ACCEPTED by drone")
+            else:
+                print(f"Takeoff REJECTED. Result code: {ack.result}")
+    else:
+        print("No ACK received (check for signing errors or packet loss)")
     print("Takeoff command sent")
-    time.sleep(1)
-    print("Takeoff complete")
+    time.sleep(5)
 else:
-    print("Takeoff failed")
+    print("Failed to arm motors within timeout")

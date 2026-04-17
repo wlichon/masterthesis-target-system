@@ -299,10 +299,10 @@ def initialize_udp_destinations() -> None:
     db.session.add(UdpDestination(ip="127.0.0.1", port=14540))
 
     ip_list = subprocess.check_output("hostname -I", shell=True, text=True).split()
-    if "192.168.13.1" in ip_list:
-        db.session.add(UdpDestination(ip="192.168.13.14", port=14550))
-    else:
-        db.session.add(UdpDestination(ip="10.13.0.4", port=14550))
+    # if "192.168.13.1" in ip_list:
+    db.session.add(UdpDestination(ip="192.168.13.14", port=14550))
+    # else:
+    #   db.session.add(UdpDestination(ip="10.13.0.4", port=14550))
 
     '''db.session.add(UdpDestination(ip="10.13.0.6", port=14550))
 

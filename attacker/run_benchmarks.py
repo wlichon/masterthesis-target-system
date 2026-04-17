@@ -9,8 +9,8 @@ import time
 PIPELINE_SCRIPT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "test_pipeline.py")
 
 # The parameters to test
-ATTACK_FUNCTIONS = [None, "udp_flood", "mavlink_flood", "mavlink_flood_timesync_request", "mavlink_flood_mission_request"]  # None represents the baseline (no attack)
-ITERATIONS = 5
+ATTACK_FUNCTIONS = ["socket_flood", "heartbeat_flood", "ping_flood", "param_flood", "mission_flood", "terrain_flood"]  # None represents the baseline (no attack)
+ITERATIONS = 2
 
 def run_benchmarks():
     """

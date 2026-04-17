@@ -17,6 +17,7 @@ SHELL ["/bin/bash", "-euxo", "pipefail", "-c"]
 # ─────────────────────────────────────────────────────────────────────────────
 RUN apt-get update && \
     apt-get install -y  \
+        moreutils \
         locales libxcb-cursor0 \
         fuse libfuse2 libxcb-cursor-dev \
         gstreamer1.0-gl gstreamer1.0-libav \

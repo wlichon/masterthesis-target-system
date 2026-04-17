@@ -188,6 +188,7 @@ if [[ "${sim_mode}" == "lite" ]]; then
   CC_SVC="companion-computer-lite"
   GCS_SVC="ground-control-station-lite"
   SIM_SVC="simulator-lite"
+  FW_SVC="gcs-firewall"
 else
   DOCKER_COMPOSE_FILE="$SCRIPT_DIR/docker-compose.yaml"
   CC_SVC="companion-computer"
@@ -249,12 +250,13 @@ if [[ "$wifi_simulation" == "y" ]]; then
     # Start stack
     stop_all_stacks
     echo -e "${CYAN}[+] Starting Docker Compose (mode: ${sim_mode})...${NC}"
-    # compose up -d
-    compose up -d --build
+    compose up -d
+    # compose up -d --build
 
     # Container IDs via compose (robust even without container_name)
     CC_CID="$(compose ps -q "$CC_SVC" || true)"
     GCS_CID="$(compose ps -q "$GCS_SVC" || true)"
+    FW_CID="$(compose ps -q gcs-firewall || true)"
     [[ -n "$CC_CID" && -n "$GCS_CID" ]] || { echo "Containers not up yet."; }
 
     echo -e "${CYAN}[+] Fetching Docker Compose logs...${NC}"
@@ -281,18 +283,39 @@ if [[ "$wifi_simulation" == "y" ]]; then
     # Get PIDs using container IDs
     CC_PID="$(docker inspect --format '{{ .State.Pid }}' "$CC_CID")"
     GCS_PID="$(docker inspect --format '{{ .State.Pid }}' "$GCS_CID")"
+    FW_PID="$(docker inspect --format '{{ .State.Pid }}' "$FW_CID")"
 
     CC_PHY_INTERFACE="$(iw dev | awk '/phy#/{phy=$0} /Interface '"$companion_computer_interface"'/{print phy; exit}' | awk -F'#' '{print "phy"$2}')"
     GCS_PHY_INTERFACE="$(iw dev | awk '/phy#/{phy=$0} /Interface '"$gcs_interface"'/{print phy; exit}' | awk -F'#' '{print "phy"$2}')"
 
     iw phy "$CC_PHY_INTERFACE" set netns "$CC_PID"
-    iw phy "$GCS_PHY_INTERFACE" set netns "$GCS_PID"
+    iw phy "$GCS_PHY_INTERFACE" set netns "$FW_PID"
+
+    echo -e "${CYAN}[+] Creating VETH pair (Firewall <-> GCS)...${NC}"
+    # Delete existing if script crashed previously
+    ip link del veth-fw 2>/dev/null || true
+    
+    ip link add veth-fw type veth peer name veth-gcs-in
+    ip link set veth-fw netns "$FW_PID"
+    ip link set veth-gcs-in netns "$GCS_PID"
+
+    echo -e "${CYAN}[+] Configuring Routing Passthrough...${NC}"
+    # Setup Firewall internal side
+    docker exec "$FW_CID" ip link set veth-fw up
+    docker exec "$FW_CID" ip addr add 10.0.0.1/24 dev veth-fw
+    
+    # Setup GCS internal side
+    docker exec "$GCS_CID" ip link set veth-gcs-in up
+    docker exec "$GCS_CID" ip addr add 10.0.0.2/24 dev veth-gcs-in
+    docker exec "$GCS_CID" ip route add 192.168.13.0/24 via 10.0.0.1
+    # docker exec "$GCS_CID" ip route add default via 10.13.0.1 this breaks networkmanager on kali for some reason
 
     echo -e "${CYAN}[+] Setting up Access Point on Companion Computer...${NC}"
     if [[ "$wifi_mode" == "wpa2" ]]; then
       export WIFI_MODE="wpa2"
       docker cp "$SCRIPT_DIR/companion-computer/conf/hostapd_wpa2.conf" "$CC_CID":/etc/hostapd.conf
-      docker cp "$SCRIPT_DIR/ground-control-station/conf/wpa_supplicant_wpa2.conf" "$GCS_CID":/etc/wpa_supplicant/wpa_supplicant.conf
+      docker exec "$FW_CID" mkdir -p /etc/wpa_supplicant/
+      docker cp "$SCRIPT_DIR/ground-control-station/conf/wpa_supplicant_wpa2.conf" "$FW_CID":/etc/wpa_supplicant/wpa_supplicant.conf
     elif [[ "$wifi_mode" == "wep" ]]; then
       unset WIFI_MODE
       docker cp "$SCRIPT_DIR/companion-computer/conf/hostapd_wep.conf" "$CC_CID":/etc/hostapd.conf
@@ -318,10 +341,20 @@ if [[ "$wifi_simulation" == "y" ]]; then
     service NetworkManager start >/dev/null 2>&1 || true
 
     echo -e "${CYAN}[+] Setting up Ground Control Station Wi-Fi client...${NC}"
-    docker exec "$GCS_CID" sh -c "
+    docker exec "$FW_CID" sh -c "
+      # Start the supplicant
       wpa_supplicant -B -i '$gcs_interface' -c /etc/wpa_supplicant/wpa_supplicant.conf -D nl80211;
+      
+      # Wait a moment for the association to complete before assigning IP
+      sleep 2; 
+      
       ip addr add 192.168.13.14/24 dev '$gcs_interface';
-      ip route add default via 192.168.13.1 dev '$gcs_interface';
+
+      sysctl -w net.ipv4.ip_forward=1;
+      
+      # Minimal NAT to GCS
+      iptables -t nat -A PREROUTING -i '$gcs_interface' -p udp --dport 14550 -j DNAT --to-destination 10.0.0.2:14550
+      iptables -t nat -A POSTROUTING -o '$gcs_interface' -j MASQUERADE
     "
 
     echo -e "${CYAN}------------------------------------------------------"
@@ -341,10 +374,10 @@ elif [[ "$wifi_simulation" == "n" ]]; then
     echo -e "${CYAN}Starting simulation without virtual Wi-Fi..."
     stop_all_stacks
     echo -e "${CYAN}[+] Starting Docker Compose (mode: ${sim_mode})...${NC}"
-    # compose up -d
-    compose up -d --build
+    compose up -d
+    # compose up -d --build
 
-    compose logs -f "$SIM_SVC" "$CC_SVC" "$GCS_SVC" &
+    compose logs -f "$SIM_SVC" "$CC_SVC" "$GCS_SVC" "$FW_SVC" &
 
     echo -e "${CYAN}------------------------------------------------------"
     echo -e "${CYAN}[+] Build Complete."

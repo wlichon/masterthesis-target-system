@@ -1,6 +1,7 @@
 services:
   flight-controller-lite:
     image: n1ckaleks/damn-vulnerable-drone-flight-controller-lite:latest
+    cpuset: "11"
     container_name: flight-controller-lite
     privileged: true
     build:
@@ -13,9 +14,14 @@ services:
     networks:
       simulator:
         ipv4_address: 10.13.0.2
+    # deploy:
+    #   resources:
+    #     limits:
+          # cpuset: "6,7"
 
   companion-computer-lite:
     image: n1ckaleks/damn-vulnerable-drone-companion-computer-lite:latest
+    cpuset: "10"
     container_name: companion-computer-lite
     privileged: true
     extra_hosts:
@@ -35,12 +41,16 @@ services:
     networks:
       simulator:
         ipv4_address: 10.13.0.3
+    # deploy:
+    #   resources:
+    #     limits:
+          # cpuset: "4,5"
 
   ground-control-station-lite:
     # keep open to prevent mavproxy from closing
     tty: true
     stdin_open: true
-
+    cpuset: "8"
     image: n1ckaleks/damn-vulnerable-drone-ground-control-station-lite:latest
     container_name: ground-control-station-lite
     privileged: true
@@ -67,6 +77,10 @@ services:
     networks:
       simulator:
         ipv4_address: 10.13.0.4
+    # deploy:
+    #   resources:
+    #     limits:
+          # cpuset: "0,1"
 
   simulator-lite:
     container_name: simulator-lite
@@ -85,6 +99,20 @@ services:
     networks:
       simulator:
         ipv4_address: 10.13.0.5
+
+  # gcs-firewall:
+  #   image: alpine:latest
+  #   container_name: gcs-firewall
+  #   cpuset: "9"
+  #   privileged: true
+  #   command: sh -c "apk add --no-cache iptables wpa_supplicant && tail -f /dev/null"
+  #   networks:
+  #     simulator:
+  #       ipv4_address: 10.13.0.10
+  #   # deploy:
+  #   #   resources:
+  #   #     limits:
+  #         # cpuset: "2,3"
 
 volumes:
   serial-uart-socket:

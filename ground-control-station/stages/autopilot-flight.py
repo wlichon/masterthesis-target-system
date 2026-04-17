@@ -1,5 +1,14 @@
+import sys
+
 from pymavlink import mavutil
 import time
+from signing import setup_packet_signing
+
+log_path = '/opt/gcs/stages/af_debug.log'
+
+# Use os.open to ensure we have raw access, then wrap it
+sys.stdout = open(log_path, 'a', encoding='utf-8')
+sys.stderr = sys.stdout
 
 connection_string = "udp:0.0.0.0:14550"  # Replace with your connection string
 
@@ -15,7 +24,7 @@ def connect_to_drone(connection_string, timeout=30, retries=5):
     for attempt in range(retries):
         try:
             print(f"Attempt {attempt+1} of {retries} to connect to drone")
-            master = mavutil.mavlink_connection(connection_string)
+            master = mavutil.mavlink_connection(connection_string, source_system=255)
             start_time = time.time()
 
             while True:
@@ -39,16 +48,29 @@ def connect_to_drone(connection_string, timeout=30, retries=5):
     raise ConnectionError("Failed to connect to the drone after multiple attempts")
 
 # Read waypoints from file
-waypoints = read_waypoints('/opt/gcs//missions/waypoints_circle.txt')
+waypoints = read_waypoints('/opt/gcs/missions/waypoints_circle.txt')
 
 master = connect_to_drone(connection_string)
+setup_packet_signing(master)
 # Start mission upload
 master.waypoint_clear_all_send()
+ack = master.recv_match(type='MISSION_ACK', blocking=True, timeout=5)
+if ack:
+    print(f"Drone cleared mission. Result: {ack.type}")
+else:
+    print("FAILED: Drone did not acknowledge mission clear. Checking for heartbeat...")
+    hb = master.recv_match(type='HEARTBEAT', blocking=True, timeout=2)
+    print("Heartbeat present" if hb else "Heartbeat LOST")
+    sys.exit(1)
+
+
 master.mav.mission_count_send(master.target_system, master.target_component, len(waypoints))
 
 # Upload waypoints
 for i, (lat, lon, alt) in enumerate(waypoints):
-    msg = master.recv_match(type=['MISSION_REQUEST'], blocking=True)
+    msg = master.recv_match(type=['MISSION_REQUEST', 'MISSION_ACK'], blocking=True, timeout=5)
+    if msg and msg.get_type() == 'MISSION_ACK':
+        print(f"Mission rejected by drone. ACK type: {msg.type}")
     if msg is not None and msg.seq == i:
         master.mav.mission_item_int_send(
             master.target_system,
