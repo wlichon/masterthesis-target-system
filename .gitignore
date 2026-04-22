@@ -9,3 +9,4 @@ mav.parm
 *.netxml
 *.pyc
 logs/
+.vscode/

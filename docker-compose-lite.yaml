@@ -1,7 +1,7 @@
 services:
   flight-controller-lite:
     image: n1ckaleks/damn-vulnerable-drone-flight-controller-lite:latest
-    cpuset: "11"
+    # cpuset: "11"
     container_name: flight-controller-lite
     privileged: true
     build:
@@ -21,7 +21,7 @@ services:
 
   companion-computer-lite:
     image: n1ckaleks/damn-vulnerable-drone-companion-computer-lite:latest
-    cpuset: "10"
+    # cpuset: "10"
     container_name: companion-computer-lite
     privileged: true
     extra_hosts:
@@ -50,10 +50,12 @@ services:
     # keep open to prevent mavproxy from closing
     tty: true
     stdin_open: true
-    cpuset: "8"
+    cpuset: "7"
     image: n1ckaleks/damn-vulnerable-drone-ground-control-station-lite:latest
     container_name: ground-control-station-lite
     privileged: true
+    ports:
+      - "10.0.0.1:14550:14550/udp"
     environment:
       - LITE=true
       - WIFI_MODE
