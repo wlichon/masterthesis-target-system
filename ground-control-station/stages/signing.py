@@ -29,24 +29,18 @@ def upload_signing_key_to_drone(master, passphrase):
             secret_key.append(b)
         else:
             secret_key.append(ord(b))
-    # 2. Setup the initial timestamp (Required by Message #256)
+    # Setup the initial timestamp (Required by Message #256)
     # MAVLink timestamps are usually 100-microsecond units since 1/1/2015
     initial_timestamp = get_signing_timestamp()
 
     print(f"Sending SETUP_SIGNING (#256) for key: {passphrase}")
 
-    # 3. Use the generated helper for Message #256
-    # Arguments: target_system, target_component, secret_key (list), initial_timestamp
+
     master.mav.setup_signing_send(master.target_system, master.target_component,
                                            secret_key, initial_timestamp)
 
-    # Assuming 'digest' is what you got from passphrase_to_key()
-    
-    # Give the SITL a moment to process and save to eeprom.bin
     time.sleep(1)
 
 
 def setup_packet_signing(master, timestamp=None):
-     # 4. Enable signing locally so pymavlink starts signing the NEXT messages
-     # allow_unsigned_callback=lambda mav, msgId: True
     master.setup_signing(passphrase_to_key("password"), sign_outgoing=True, initial_timestamp = timestamp)

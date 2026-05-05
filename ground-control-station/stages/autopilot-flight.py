@@ -6,11 +6,10 @@ from signing import setup_packet_signing
 
 log_path = '/opt/gcs/stages/af_debug.log'
 
-# Use os.open to ensure we have raw access, then wrap it
 sys.stdout = open(log_path, 'a', encoding='utf-8')
 sys.stderr = sys.stdout
 
-connection_string = "udp:0.0.0.0:14550"  # Replace with your connection string
+connection_string = "udp:0.0.0.0:14550" 
 
 def read_waypoints(filename):
     waypoints = []

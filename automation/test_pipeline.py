@@ -29,7 +29,7 @@ CONTAINERS = [
 ATTACKER_URL = "http://10.0.0.2:5000/trigger_attack"
 
 def format_usec_to_iso(timestamp_usec):
-    """Converts a microsecond timestamp to the ISO format: YYYY-MM-DDTHH:MM:SS.mmmZ."""
+    # Converts a microsecond timestamp to the ISO format: YYYY-MM-DDTHH:MM:SS.mmmZ
     dt = datetime.datetime.fromtimestamp(timestamp_usec / 1e6)
     return dt.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
 
@@ -158,6 +158,66 @@ class DockerMonitor:
             self.thread.join()
         return self.stats_history
 
+class PerfMonitor:
+    def __init__(self, interval=1):
+        self.stats_history = []
+        self.keep_running = True
+        self.thread = None
+        self.interval = interval
+
+    def _monitor_loop(self):
+        # captures instructions and cpu cycles, data is unused since it didnt turn out to be useful
+        cmd = [
+            "sudo", "perf", "stat", 
+            "-a", 
+            "-e", "instructions,cycles", 
+            "sleep", str(self.interval)
+        ]
+
+        while self.keep_running:
+            try:
+                # perf stat outputs to stderr by default
+                process = subprocess.Popen(
+                    cmd, 
+                    stdout=subprocess.PIPE, 
+                    stderr=subprocess.PIPE, 
+                    text=True
+                )
+                _, stderr = process.communicate()
+                
+                timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
+                
+                # Extract numbers using regex
+                # Example line: "      1,234,567      instructions"
+                instructions = re.search(r'([\d,]+)\s+instructions', stderr)
+                cycles = re.search(r'([\d,]+)\s+cycles', stderr)
+
+                if instructions and cycles:
+                    instr_val = int(instructions.group(1).replace(',', ''))
+                    cycl_val = int(cycles.group(1).replace(',', ''))
+                    
+                    self.stats_history.append({
+                        "timestamp": timestamp,
+                        "instructions": instr_val,
+                        "cycles": cycl_val,
+                        "ipc": round(instr_val / cycl_val, 2) if cycl_val > 0 else 0
+                    })
+
+            except Exception as e:
+                print(f"Perf Monitor Error: {e}")
+                break
+
+    def start(self):
+        self.keep_running = True
+        self.thread = threading.Thread(target=self._monitor_loop)
+        self.thread.daemon = True
+        self.thread.start()
+
+    def stop(self):
+        self.keep_running = False
+        if self.thread:
+            time.sleep(0.1) 
+        return self.stats_history
 
 class HostMonitor:
     def __init__(self):
@@ -166,18 +226,19 @@ class HostMonitor:
         self.thread = None
 
     def _monitor_loop(self):
-        """Monitors the Host CPU usage."""
         # First call to cpu_percent initializes the comparison
-        psutil.cpu_percent(interval=None)
+        psutil.cpu_percent(interval=None, percpu=True)
         
         while self.keep_running:
-            timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
+            # timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
+            timestamp = datetime.datetime.now().isoformat()
             # Get CPU load across all cores as a percentage
-            cpu_usage = psutil.cpu_percent(interval=1) 
+            cpu_usages = psutil.cpu_percent(interval=0.1, percpu=True)
+            host_core_usage = cpu_usages[0] if cpu_usages else 0 
             
             self.host_history.append({
                 "timestamp": timestamp,
-                "host_cpu_percent": cpu_usage
+                "host_cpu_percent": host_core_usage
             })
 
     def start(self):
@@ -298,8 +359,7 @@ def get_current_timestamp():
     return now.strftime("%Y-%m-%d_%H:%M:%S")
 
 def main(attack_function, drone_reset, idle_flight_time, attack_flight_time):
-    # --- CONFIGURATION ---
-    python_venv_path = "/home/lichon/Desktop/python-venv/bin"  # Adjust if your virtual environment is located elsewhere
+    python_venv_path = "/home/lichon/Desktop/python-venv/bin"  # Adjust if virtual environment is located elsewhere
     attack_label = attack_function if attack_function else "baseline"
     execution_record = {}
     
@@ -307,7 +367,6 @@ def main(attack_function, drone_reset, idle_flight_time, attack_flight_time):
     timestamp = get_current_timestamp()
     execution_record["timestamps"] = {"start": timestamp}
     execution_record["configuration"] = { "attack_function": attack_function, "attack_time": attack_flight_time, "flight_time": idle_flight_time, "drone_reset": drone_reset}  
-    # timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     base_log_path = os.path.join(working_directory, f"logs/{attack_label}/{timestamp}")
     flashlogs_dir = os.path.join(base_log_path, "flashlogs")
     tlogs_dir = os.path.join(base_log_path, "tlogs")
@@ -320,9 +379,9 @@ def main(attack_function, drone_reset, idle_flight_time, attack_flight_time):
     host_monitor = HostMonitor()
     net_monitor = NetworkMonitor()
     socket_monitor = SocketMonitor()
+    perf_monitor = PerfMonitor()
 
     if drone_reset:
-        # Reset the simulation
         print("Resetting GCS logs and restarting MAVProxy...")
         requests.post(f"http://localhost:8000/reset")
 
@@ -345,9 +404,9 @@ def main(attack_function, drone_reset, idle_flight_time, attack_flight_time):
     host_monitor.start()
     net_monitor.start()
     socket_monitor.start()
+    perf_monitor.start()
     time.sleep(1)
     if drone_reset:
-        # Start stages
         for stage in ["stage1", "stage2", "stage3"]:
             print(f"Starting {stage}...")
             requests.post(f"http://localhost:8000/{stage}")
@@ -385,12 +444,6 @@ def main(attack_function, drone_reset, idle_flight_time, attack_flight_time):
     
     time.sleep(attack_flight_time)
         
-    # execution_record["attack_function"] = loop_function(attack_time, attack_function)
-    
-    # execution_record["timestamps"]["second_normal_flight"] = get_current_timestamp()
-    # print(f"Flying normally for another {flight_time} seconds after attack...")
-    # time.sleep(flight_time)
-
     print(f"Saving logs to {base_log_path}")
 
    
@@ -439,14 +492,13 @@ def main(attack_function, drone_reset, idle_flight_time, attack_flight_time):
             host_stats = host_monitor.stop()
             net_stats = net_monitor.stop() 
             sock_stats = socket_monitor.stop()
+            perf_stats = perf_monitor.stop()
 
 
         latency_stats = []
 
         try:
             print("Parsing MAV log for latency stats...")
-            # path = os.path.join(base_log_path, 'mavlogdump_output.txt')
-            # print("LATENCY PATH" + path)
             latency_stats = subprocess.run(["docker", "exec", "ground-control-station-lite", "cat", "/home/user/Documents/mavproxy/latency.log"], capture_output=True, text=True, check=True).stdout.strip().splitlines()
             
             lines = [line for line in latency_stats if "ping response" in line]
@@ -454,11 +506,11 @@ def main(attack_function, drone_reset, idle_flight_time, attack_flight_time):
             for line in lines:
             
                 try:
-                    # 1. Extract Timestamp: string between first '[' and ']'
+                    # Extract Timestamp string between first '[' and ']'
                     ts_str = line[line.find("[")+1 : line.find("]")]
                     timestamp = datetime.datetime.strptime(ts_str, "%Y-%m-%d %H:%M:%S").timestamp()*1e6
 
-                    # 2. Extract Latency: split after the colon, before 'ms'
+                    # Extract Latency split after the colon before 'ms'
                     # Format: "...ping response: 5.759ms..."
                     lat_part = line.split("ping response: ")[1].split("ms")[0]
                     latency_ms = float(lat_part)
@@ -472,7 +524,7 @@ def main(attack_function, drone_reset, idle_flight_time, attack_flight_time):
                     continue
             
                 
-                # Now latency_values contains [3.658, ...]
+                # latency_values contains [3.658, ...]
                 print(f"Extracted {len(latency_data)} latency data points.")
         except Exception as e:
             print(f"Error occurred while parsing MAV log: {e}")
@@ -485,7 +537,8 @@ def main(attack_function, drone_reset, idle_flight_time, attack_flight_time):
             "host_stats": host_stats,
             "latency_stats": latency_data,
             "net_stats": net_stats,
-            "sock_stats": sock_stats
+            "sock_stats": sock_stats,
+            "perf_stats": perf_stats
         }
 
         

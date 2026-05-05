@@ -5,62 +5,8 @@ from signing import upload_signing_key_to_drone, setup_packet_signing
 
 log_path = '/opt/gcs/stages/aat_debug.log'
 
-# Use os.open to ensure we have raw access, then wrap it
 sys.stdout = open(log_path, 'a', encoding='utf-8')
 sys.stderr = sys.stdout
-
-# def passphrase_to_key(passphrase):
-#         '''convert a passphrase to a 32 byte key'''
-#         import hashlib
-#         h = hashlib.new('sha256')
-#         if sys.version_info[0] >= 3:
-#             passphrase = passphrase.encode('ascii')
-#         h.update(passphrase)
-#         return h.digest()
-
-# def get_signing_timestamp():
-#         '''get a timestamp from current clock in units for signing'''
-#         epoch_offset = 1420070400
-#         now = max(time.time(), epoch_offset)
-#         return int((now - epoch_offset)*1e5)
-
-# def setup_signing_and_key(master, passphrase):
-#     """
-#     Uses MAVLink Message #256 (SETUP_SIGNING) to upload the key.
-#     """
-   
-#     digest = passphrase_to_key(passphrase)
-#     secret_key = []
-#     for b in digest:
-#         if sys.version_info[0] >= 3:
-#             secret_key.append(b)
-#         else:
-#             secret_key.append(ord(b))
-#     # 2. Setup the initial timestamp (Required by Message #256)
-#     # MAVLink timestamps are usually 100-microsecond units since 1/1/2015
-#     initial_timestamp = get_signing_timestamp()
-
-#     print(f"Sending SETUP_SIGNING (#256) for key: {passphrase}")
-
-#     # 3. Use the generated helper for Message #256
-#     # Arguments: target_system, target_component, secret_key (list), initial_timestamp
-#     master.mav.setup_signing_send(master.target_system, master.target_component,
-#                                            secret_key, initial_timestamp)
-
-#     # Assuming 'digest' is what you got from passphrase_to_key()
-#     key_file_path = "mavlink_signing_key.bin"
-
-#     with open(key_file_path, "wb") as f:
-#         f.write(digest)
-
-#     print(f"Key saved to {key_file_path}")
-    
-    
-#     # 4. Enable signing locally so pymavlink starts signing the NEXT messages
-#     master.setup_signing(digest, sign_outgoing=True)
-    
-#     # Give the SITL a moment to process and save to eeprom.bin
-#     time.sleep(1)
 
 def wait_for_mode(master, mode):
     while True:
@@ -91,8 +37,6 @@ def wait_for_ekf_status(master):
             print("EKF status OK")
             break
         time.sleep(0.5)
-
-# --- Main Logic ---
 
 # Create connection (UDP for SITL/Docker)
 connection_string = "udp:0.0.0.0:14550"
@@ -129,34 +73,30 @@ def print_statustext(master):
     if msg:
         print(f"Autopilot Status: {msg.text}")
 
-# Arm (Signed)
+
 
 master.arducopter_arm()
 print("Arming motors...")
 
+# Immediately check if the drone REJECTED the command
 
-# Call this inside your loops while waiting
-
-# 2. Immediately check if the drone REJECTED the command
-# This captures the "PreArm: XYZ" errors
 ack = master.recv_match(type='COMMAND_ACK', blocking=True, timeout=2)
 if ack:
     if ack.result != mavutil.mavlink.MAV_RESULT_ACCEPTED:
         print(f"Arming command REJECTED. Result code: {ack.result}")
-        # At this point, you'd likely want to see the STATUSTEXT
-        # for the specific PreArm failure reason.
+        # you'd want to see the STATUSTEXT for debugging
         msg = master.recv_match(type='STATUSTEXT', blocking=True, timeout=1)
         if msg:
             print(f"Reason: {msg.text}")
-        # Optional: exit(1) if you want to stop on a hard rejection
 
-# 3. If it wasn't rejected, THEN wait for the state to change to ARMED
+
+# If it wasn't rejected, THEN wait for the state to change to ARMED
 arming_timeout = 5
 start_time = time.time()
 while time.time() - start_time < arming_timeout:
     heartbeat = master.recv_match(type='HEARTBEAT', blocking=True, timeout=1)
     
-    # Check for any background status messages (PreArm issues)
+    # Check for any background status messages
     print_statustext(master) 
     
     if heartbeat and is_armed(heartbeat):

@@ -35,14 +35,13 @@ class MavLossCalculator:
         if src_system == 2: # ignore heartbeat messages from mavlink flood attacker, as the loss of these message is not relevant to the analysis of the drone's packet loss under attack
             return
 
-        # Ignore BAD_DATA and Radio status messages (3DR Radio) as per your logic
+        # Ignore BAD_DATA and Radio status messages
         # '3' and 'D' in ASCII are 51 and 68
         radio_tuple = (51, 68)
         if src_tuple == radio_tuple or msg_type == 'BAD_DATA':
             return
 
         if src_tuple not in self.last_seq:
-            # First time seeing this system/component
             last_seq = -1
         else:
             last_seq = self.last_seq[src_tuple]

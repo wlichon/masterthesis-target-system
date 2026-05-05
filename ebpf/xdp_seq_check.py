@@ -35,7 +35,7 @@ int drop_duplicate_mavlink(struct xdp_md *ctx) {
     if ((void*)(payload + 3) > data_end) return XDP_PASS;
 
 
-    // 2. Extract SEQ byte
+    // Extract SEQ byte
     u8 current_seq = payload[2];
     u32 key = 0;
     u8 *last_seq = last_seq_map.lookup(&key);
@@ -47,7 +47,7 @@ int drop_duplicate_mavlink(struct xdp_md *ctx) {
         }
     }
 
-    // 4. Update map with new SEQ Byte
+    // Update map with new SEQ Byte
     last_seq_map.update(&key, &current_seq);
 
     return XDP_PASS;

@@ -8,5 +8,4 @@ mav.parm
 *.csv
 *.netxml
 *.pyc
-logs/
 .vscode/

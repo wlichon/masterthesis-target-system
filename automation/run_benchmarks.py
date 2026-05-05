@@ -6,11 +6,14 @@ import time
 
 PIPELINE_SCRIPT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "test_pipeline.py")
 
-# The parameters to test
-ATTACK_FUNCTIONS = [None]  # None represents the baseline (no attack)
+# ATTACK_FUNCTIONS = ["stress_test_random_payload_flood"]
 
-# ATTACK_FUNCTIONS = ["empty_payload_flood", "random_payload_flood", "stx_header_flood"]  # None represents the baseline (no attack)
+# ATTACK_FUNCTIONS = [None]  # None represents the baseline (no attack)
+# ATTACK_FUNCTIONS = ["random_payload_flood"]
+# ATTACK_FUNCTIONS = ["empty_payload_flood", "random_payload_flood"]
+ATTACK_FUNCTIONS = ["empty_payload_flood", "random_payload_flood", "stx_header_flood"]
 ITERATIONS = 5
+attack_time = "300"
 
 def run_benchmarks():
     """
@@ -24,18 +27,18 @@ def run_benchmarks():
 
     for attack in ATTACK_FUNCTIONS:
         attack_arg = "None" if attack is None else attack
-        attack_time = "60"
         idle_time = "60"
         
         print(f"\n{'='*60}")
-        print(f"STARTING BATCH: Attack = {attack_arg}")
+        print(f"Attack = {attack_arg}")
         print(f"{'='*60}")
 
         for i in range(1, ITERATIONS + 1):
             print(f"\n[Iteration {i}/{ITERATIONS}] Running {attack_arg}...")
             
-          
             cmd = [sys.executable, PIPELINE_SCRIPT, "--attack", attack_arg, "--idle", idle_time, "--attack-time", attack_time]
+          
+            # cmd = [sys.executable, PIPELINE_SCRIPT, "--attack", attack_arg, "--idle", idle_time, "--attack-time", attack_time, "--no-reset"]
             
             try:
                 subprocess.run(cmd, check=True)
