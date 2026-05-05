@@ -40,7 +40,7 @@ Any scripts which generate charts, plots and calculate statistics are also found
 
 # Damn Vulnerable Drone
 
-The Damn Vulnerable Drone is an intentionally vulnerable drone hacking simulator based on the popular ArduPilot/MAVLink architecture, providing a realistic environment for hands-on drone hacking. It served as the foundation for my master's thesis, thanks to it pre-configured realistic drone-environment simulation.
+The Damn Vulnerable Drone is an intentionally vulnerable drone hacking simulator based on the popular ArduPilot/MAVLink architecture, providing a realistic environment for hands-on drone hacking. It served as the foundation for my master's thesis, thanks to its pre-configured realistic drone-environment simulation.
 
 # Disclaimer
 
